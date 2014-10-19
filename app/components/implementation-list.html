@@ -1,0 +1,33 @@
+
+<link rel="import" href="../lib/core-menu/core-menu.html">
+<link rel="import" href="../lib/core-icon/core-icon.html">
+<link rel="import" href="../lib/core-item/core-item.html">
+<link rel="import" href="source-service.html">
+<link rel="import" href="implementation-item.html">
+
+<polymer-element name="buggy-implementation-list">
+  <template>
+    <link rel="stylesheet" href="../styles/components/implementation-list.css" />
+    
+    <buggy-source-service sources="{{sources}}"></buggy-source-service>
+    
+    <core-menu>
+      <template repeat="{{s in sources}}">
+        <template repeat="{{im in s.implementations}}">
+          <buggy-implementation-item data="{'name':'aaa'}"></buggy-implementation-item>
+        </template>
+      </template>
+    </core-menu>
+  </template>
+  
+  <script>
+  Polymer({
+    stringify: function(object) {
+      return JSON.stringify(object, null, '');
+    },
+    implementationSelected: function(a){
+      console.log(a.toElement.$.implementation);
+    }
+  });
+  </script>
+</polymer-element>

@@ -1,0 +1,51 @@
+<link rel="import" href="lib/core-scaffold/core-scaffold.html">
+<link rel="import" href="lib/core-header-panel/core-header-panel.html">
+<link rel="import" href="lib/core-toolbar/core-toolbar.html">
+<link rel="import" href="lib/core-icon/core-icon.html">
+<link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="lib/polymer-ui-accordion/polymer-ui-accordion.html">
+<link rel="import" href="components/implementation-list.html">
+<link rel="import" href="components/implementation-view.html">
+<!--
+Web UI for Buggy, based on Polymer.
+
+##### Example
+
+    <buggyui></buggyui>
+
+@element buggyui
+@blurb Web UI for Buggy, based on Polymer
+@status alpha
+@homepage 
+-->
+<polymer-element name="buggy-app">
+
+  <template>
+
+    <!-- build:css styles/buggyui.min.css -->
+    <link rel="stylesheet" href="styles/buggyui.css" />
+    <!-- endbuild -->
+
+    <core-scaffold>
+      <core-header-panel navigation flex>
+        <core-toolbar id="navheader">
+          <span flex>Navigation</span>
+          <paper-icon-button icon="search"></paper-icon-button>
+        </core-toolbar>
+        <buggy-implementation-list></buggy-implementation-list>
+      </core-header-panel>
+      <div tool>
+        Implementation
+      </div>
+      <div>
+        <buggy-implementation-view></buggy-implementation-view>
+      </div>
+    </core-scaffold>
+    
+  </template>
+
+  <!-- build:js scripts/buggyui.min.js -->
+  <script src="scripts/buggyui.js"></script>
+  <!-- endbuild -->
+
+</polymer-element>

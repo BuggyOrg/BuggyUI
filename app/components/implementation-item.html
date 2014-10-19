@@ -1,0 +1,18 @@
+<link rel="import" href="../lib/core-item/core-item.html">
+
+<polymer-element name="buggy-implementation-item" attributes="data">
+  <template>
+    <core-item label="{{data}}"></core-item>
+  </template>
+  <script>
+  Polymer({
+    ready: function(){
+      if(typeof this.data === typeof ""){
+        var dtString = this.data;
+        var dt = JSON.parse(dtString);
+        //this.data = data;
+      }
+    }
+  });
+  </script>
+</polymer-element>
