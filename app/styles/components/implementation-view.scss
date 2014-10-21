@@ -9,9 +9,12 @@ core-toolbar {
 div[content]{
   width: $content-width;
   height: 50px;
-  
+
   h1{
     padding-left: 20px;
+    small {
+      font-weight: 200;
+    }
   }
 }
 

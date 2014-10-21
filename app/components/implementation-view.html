@@ -7,25 +7,25 @@
 <link rel="import" href="../lib/core-icon/core-icon.html">
 <link rel="import" href="../lib/paper-icon-button/paper-icon-button.html">
 
-<polymer-element name="buggy-implementation-view">
+<polymer-element name="buggy-implementation-view" attributes="implementation">
   <template>
     <link rel="stylesheet" href="../styles/components/implementation-view.css">
     <div content>
-      <h1>{{name}}</h1>
+      <h1>{{implementation.name}}<small> (implements {{implementation.symbol}})</small></h1>
       <core-toolbar>
         <div flex>
-          LiveScript
+          {{implementation.language}}
         </div>
         <paper-icon-button icon="menu"></paper-icon-button>
       </core-toolbar>
 
       <div preview>
         <div ace-container>
-          <ace-element fontSize="14pt">{{code}}</ace-element>
+          <ace-element fontSize="13pt" value="{{implementation.implementation}}"></ace-element>
         </div>
       </div>
       <div description>
-        <buggy-description description="{{description}}"></buggy-description>
+        <buggy-description description="{{implementation.description}}"></buggy-description>
       </div>
     </div>
   </template>

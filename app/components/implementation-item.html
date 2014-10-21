@@ -1,17 +1,26 @@
-<link rel="import" href="../lib/core-item/core-item.html">
+<link rel="import" href="../lib/paper-item/paper-item.html">
 
-<polymer-element name="buggy-implementation-item" attributes="data">
+<polymer-element name="buggy-implementation-item" attributes="data appState">
   <template>
-    <core-item label="{{data}}"></core-item>
+    <style>
+      paper-item::shadow core-icon{
+        color: #ddd;
+      }
+    </style>
+    <paper-item class="{{data.type}}" label="{{data.name}}" icon="{{icon}}" on-click="{{activate}}"></paper-item>
   </template>
   <script>
   Polymer({
     ready: function(){
-      if(typeof this.data === typeof ""){
-        var dtString = this.data;
-        var dt = JSON.parse(dtString);
-        //this.data = data;
+      if(this.data.atomic){
+        this.icon = "check-circle-blank";
+      } else {
+        this.icon = "extension";
       }
+    },
+    activate: function(){
+      this.appState.active = this.data;
+      console.log(this.data);
     }
   });
   </script>

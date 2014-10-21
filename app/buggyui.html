@@ -1,11 +1,13 @@
-<link rel="import" href="lib/core-scaffold/core-scaffold.html">
-<link rel="import" href="lib/core-header-panel/core-header-panel.html">
 <link rel="import" href="lib/core-toolbar/core-toolbar.html">
+<link rel="import" href="lib/paper-tabs/paper-tabs.html">
+<link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="lib/core-icon/core-icon.html">
 <link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="lib/polymer-ui-accordion/polymer-ui-accordion.html">
 <link rel="import" href="components/implementation-list.html">
 <link rel="import" href="components/implementation-view.html">
+<link rel="import" href="components/source-service.html">
+<link rel="import" href="components/app-state.html">
 <!--
 Web UI for Buggy, based on Polymer.
 
@@ -16,7 +18,7 @@ Web UI for Buggy, based on Polymer.
 @element buggyui
 @blurb Web UI for Buggy, based on Polymer
 @status alpha
-@homepage 
+@homepage
 -->
 <polymer-element name="buggy-app">
 
@@ -26,22 +28,32 @@ Web UI for Buggy, based on Polymer.
     <link rel="stylesheet" href="styles/buggyui.css" />
     <!-- endbuild -->
 
-    <core-scaffold>
-      <core-header-panel navigation flex>
-        <core-toolbar id="navheader">
-          <span flex>Navigation</span>
-          <paper-icon-button icon="search"></paper-icon-button>
+    <buggy-app-state state="{{state}}"></buggy-app-state>
+    <buggy-source-service sources="{{sources}}"></buggy-source-service>
+
+    <div base layout horizontal>
+      <div nav>
+        <core-toolbar>
+          <paper-tabs id="tabs" self-end selected="implementation">
+            <paper-tab name="implementation">Implementation</paper-tab>
+            <paper-tab name="sources">Sources</paper-tab>
+          </paper-tabs>
         </core-toolbar>
-        <buggy-implementation-list></buggy-implementation-list>
-      </core-header-panel>
-      <div tool>
-        Implementation
+        <buggy-implementation-list sources="{{sources}}" appState="{{state}}"></buggy-implementation-list>
       </div>
-      <div>
-        <buggy-implementation-view></buggy-implementation-view>
+      <div content>
+        <core-toolbar>
+          <paper-icon-button icon="undo"></paper-icon-button>
+          <paper-icon-button icon="save"></paper-icon-button>
+          <span flex>Implementation of {{state.active.name}}</span>
+          <paper-icon-button icon="fullscreen"></paper-icon-button>
+        </core-toolbar>
+        <div view>
+          <buggy-implementation-view implementation="{{state.active}}"></buggy-implementation-view>
+        </div>
       </div>
-    </core-scaffold>
-    
+    </div>
+
   </template>
 
   <!-- build:js scripts/buggyui.min.js -->

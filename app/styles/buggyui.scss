@@ -1,1 +1,49 @@
 @import "components/components";
+
+core-header-panel {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+core-toolbar {
+  background: #03a9f4;
+  color: white;
+}
+
+core-header-panel {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+div[nav] {
+  width:40%;
+  height:100%;
+  border-right: 1px solid #ddd;
+
+  paper-tabs, core-toolbar {
+    background-color: #00bcd4;
+    color: #fff;
+  }
+}
+
+#tabs {
+  height: 100%;
+}
+
+paper-tabs {
+  max-width:600px;
+  width: 100%;
+}
+
+div[content] {
+  width: 100%;
+  core-toolbar {
+    background-color: #009688;
+    color: #fff;
+  }
+
+  div[view]{
+    margin: 20px;
+  }
+}

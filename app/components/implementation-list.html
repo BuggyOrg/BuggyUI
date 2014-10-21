@@ -5,16 +5,14 @@
 <link rel="import" href="source-service.html">
 <link rel="import" href="implementation-item.html">
 
-<polymer-element name="buggy-implementation-list">
+<polymer-element name="buggy-implementation-list" attributes="sources appState">
   <template>
     <link rel="stylesheet" href="../styles/components/implementation-list.css" />
-    
-    <buggy-source-service sources="{{sources}}"></buggy-source-service>
-    
+        
     <core-menu>
       <template repeat="{{s in sources}}">
         <template repeat="{{im in s.implementations}}">
-          <buggy-implementation-item data="{'name':'aaa'}"></buggy-implementation-item>
+          <buggy-implementation-item data='{{im}}' appState="{{appState}}"></buggy-implementation-item>
         </template>
       </template>
     </core-menu>
