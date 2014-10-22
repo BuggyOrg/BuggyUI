@@ -1,12 +1,15 @@
 
 <polymer-element name="buggy-app-state" attributes="state">
   <template></template>
-  
+
   <script>
   Polymer({
     created: function(){
       this.state = {
-        active: {}
+        active: {},
+        settings: {
+          name: "Undo History"
+        }
       };
     }
   });

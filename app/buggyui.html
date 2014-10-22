@@ -34,12 +34,21 @@ Web UI for Buggy, based on Polymer.
     <div base layout horizontal>
       <div nav>
         <core-toolbar>
-          <paper-tabs id="tabs" self-end selected="implementation">
+          <paper-tabs id="tabs" self-end selected="{{selected}}">
             <paper-tab name="implementation">Implementation</paper-tab>
             <paper-tab name="sources">Sources</paper-tab>
+            <paper-tab name="settings">Settings</paper-tab>
           </paper-tabs>
         </core-toolbar>
-        <buggy-implementation-list sources="{{sources}}" appState="{{state}}"></buggy-implementation-list>
+        <div hidden?="{{selected!='implementation'}}">
+          <buggy-implementation-list sources="{{sources}}" appState="{{state}}"></buggy-implementation-list>
+        </div>
+        <div hidden?="{{selected!='sources'}}">
+          <h1>Sources</h1>
+        </div>
+        <div hidden?="{{selected!='settings'}}">
+          <h1>Settings</h1>
+        </div>
       </div>
       <div content>
         <core-toolbar>
@@ -57,7 +66,11 @@ Web UI for Buggy, based on Polymer.
   </template>
 
   <!-- build:js scripts/buggyui.min.js -->
-  <script src="scripts/buggyui.js"></script>
+  <script>
+  Polymer({
+    selected: "implementation"
+  });
+  </script>
   <!-- endbuild -->
 
 </polymer-element>
