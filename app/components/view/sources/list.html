@@ -1,0 +1,41 @@
+
+<link rel="import" href="../../../lib/core-menu/core-menu.html">
+<link rel="import" href="../../../lib/core-icon/core-icon.html">
+<link rel="import" href="item.html">
+<link rel="import" href="../../../lib/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="buggy-sources-list" attributes="sources active">
+  <template>
+    <style>
+    </style>
+    <div vertical justified layout>
+      <div>
+        <core-menu>
+          <template repeat="{{s in sources}}">
+            <buggy-source-item data="{{s}}" on-selected="{{selected}}"></buggy-source-item>
+          </template>
+        </core-menu>
+      </div>
+      <div horizontal end-justified layout style="margin-right:10px">
+        <paper-icon-button icon="add" on-click="{{add}}"
+          style="background-color:#db4437;border-radius:50%;color:white">
+        </paper-icon-button>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  Polymer({
+    sources: [],
+    selected: function(e){
+      this.active = e.detail;
+    },
+    add: function(){
+      this.sources.push({
+        name: "Unnamed Source",
+        url: ""
+      })
+    }
+  });
+  </script>
+</polymer-element>

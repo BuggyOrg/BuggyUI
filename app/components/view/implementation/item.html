@@ -1,6 +1,6 @@
-<link rel="import" href="../lib/paper-item/paper-item.html">
+<link rel="import" href="../../../lib/paper-item/paper-item.html">
 
-<polymer-element name="buggy-implementation-item" attributes="data appState">
+<polymer-element name="buggy-implementation-item" attributes="data">
   <template>
     <style>
       paper-item::shadow core-icon{
@@ -19,8 +19,7 @@
       }
     },
     activate: function(){
-      this.appState.active = this.data;
-      console.log(this.data);
+      this.fire("selected", this.data);
     }
   });
   </script>

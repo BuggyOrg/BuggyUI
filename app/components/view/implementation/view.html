@@ -1,0 +1,60 @@
+
+<link rel="import" href="description.html">
+<link rel="import" href="../../../lib/paper-shadow/paper-shadow.html">
+<link rel="import" href="../../../lib/ace-element/ace-element.html">
+<link rel="import" href="../../../lib/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../../lib/core-icon/core-icon.html">
+<link rel="import" href="../../../lib/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="buggy-implementation-view" attributes="implementation">
+  <template>
+    <link rel="stylesheet" href="../../../styles/components/implementation-view.css">
+    <div content hidden?="{{empty}}">
+      <h1>{{name}}<small> (implements {{symbol}})</small></h1>
+      <core-toolbar>
+        <div flex>
+          {{language}}
+        </div>
+        <paper-icon-button icon="menu"></paper-icon-button>
+      </core-toolbar>
+
+      <div preview>
+        <div ace-container>
+          <ace-element fontSize="13pt" value="{{code}}" on-editor-input="{{codeChange}}"></ace-element>
+        </div>
+      </div>
+      <div description>
+        <buggy-description value="{{description}}"></buggy-description>
+      </div>
+    </div>
+    <div empty hidden?="{{!empty}}" layout horizontal center style="height:400px;margin:20px">
+      <h1>No implementation selected!</h1>
+    </div>
+  </template>
+  <script>
+  Polymer({
+    empty: true,
+    name: "NAME!",
+    code: "abc = function(){return 3;};",
+    description: "A very **smart** text should be here",
+    implementation: {},
+    implementationChanged: function(){
+      this.empty = !("name" in this.implementation);
+      console.log("implementation changed");
+      this.name = this.implementation.name;
+      this.symbol = this.implementation.symbol;
+      this.language = this.implementation.language;
+      this.code = this.implementation.implementation;
+      this.description = this.implementation.description || "";
+    },
+    codeChange: function(e){
+      this.implementation.implementation = e.detail.value;
+      this.fire("changed");
+    },
+    descriptionChanged: function(){
+      this.implementation.description = this.description;
+      this.fire("changed");
+    }
+  });
+  </script>
+</polymer-element>

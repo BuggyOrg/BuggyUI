@@ -1,0 +1,22 @@
+<link rel="import" href="../../../lib/marked-element/marked-element.html">
+<link rel="import" href="../../../lib/paper-input/paper-input.html">
+
+<polymer-element name="buggy-description" attributes="value">
+  <template>
+    <h1>Description</h1>
+    <paper-input multiline inputValue="{{value}}"></paper-input>
+    <marked-element text="{{value}}"></marked-element>
+  </template>
+  <script>
+  Polymer({
+    onlineValue: "",
+    valueChanged: function(oldVal, newVal){
+      if(newVal){
+        this.value = newVal;
+      } else {
+        this.value = "";
+      }
+    }
+  });
+  </script>
+</polymer-element>

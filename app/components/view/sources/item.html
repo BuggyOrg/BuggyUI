@@ -1,0 +1,19 @@
+<link rel="import" href="../../../lib/paper-item/paper-item.html">
+
+<polymer-element name="buggy-source-item" attributes="data">
+  <template>
+    <style>
+      paper-item::shadow core-icon{
+        color: #ddd;
+      }
+    </style>
+    <paper-item label="{{data.name}}" on-click="{{activate}}"></paper-item>
+  </template>
+  <script>
+  Polymer({
+    activate: function(){
+      this.fire("selected", this.data);
+    }
+  });
+  </script>
+</polymer-element>

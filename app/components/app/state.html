@@ -7,10 +7,19 @@
     created: function(){
       this.state = {
         active: {},
+        sources: [
+          {
+            name: "Core-Semantics",
+            url: "/public/semantics.json"
+          }
+        ],
         settings: {
           name: "Undo History"
         }
       };
+    },
+    stateChanged: function(){
+      console.log("stateChanged");
     }
   });
   </script>

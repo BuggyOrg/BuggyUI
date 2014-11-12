@@ -4,10 +4,13 @@
 <link rel="import" href="lib/core-icon/core-icon.html">
 <link rel="import" href="lib/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="lib/polymer-ui-accordion/polymer-ui-accordion.html">
-<link rel="import" href="components/implementation-list.html">
-<link rel="import" href="components/implementation-view.html">
-<link rel="import" href="components/source-service.html">
-<link rel="import" href="components/app-state.html">
+<link rel="import" href="components/view/implementation/edit.html">
+<link rel="import" href="components/view/implementation/view.html">
+<link rel="import" href="components/view/implementation/list.html">
+<link rel="import" href="components/view/sources/list.html">
+<link rel="import" href="components/view/sources/edit.html">
+<link rel="import" href="components/data/source-service.html">
+<link rel="import" href="components/app/state.html">
 <!--
 Web UI for Buggy, based on Polymer.
 
@@ -29,36 +32,42 @@ Web UI for Buggy, based on Polymer.
     <!-- endbuild -->
 
     <buggy-app-state state="{{state}}"></buggy-app-state>
-    <buggy-source-service sources="{{sources}}"></buggy-source-service>
+    <buggy-source-service sources="{{state.sources}}"></buggy-source-service>
 
-    <div base layout horizontal>
+    <div base layout horizontal fit>
       <div nav>
-        <core-toolbar>
-          <paper-tabs id="tabs" self-end selected="{{selected}}">
-            <paper-tab name="implementation">Implementation</paper-tab>
-            <paper-tab name="sources">Sources</paper-tab>
-            <paper-tab name="settings">Settings</paper-tab>
-          </paper-tabs>
-        </core-toolbar>
-        <div hidden?="{{selected!='implementation'}}">
-          <buggy-implementation-list sources="{{sources}}" appState="{{state}}"></buggy-implementation-list>
-        </div>
-        <div hidden?="{{selected!='sources'}}">
-          <h1>Sources</h1>
-        </div>
-        <div hidden?="{{selected!='settings'}}">
-          <h1>Settings</h1>
+        <div layout vertical>
+          <core-toolbar>
+            <paper-tabs id="tabs" self-end selected="{{selected}}">
+              <paper-tab name="implementation">Implementation</paper-tab>
+              <paper-tab name="sources">Sources</paper-tab>
+              <paper-tab name="settings">Settings</paper-tab>
+            </paper-tabs>
+          </core-toolbar>
+          <div hidden?="{{selected!='implementation'}}">
+            <buggy-implementation-list sources="{{state.sources}}" active="{{selectedImplementation}}"></buggy-implementation-list>
+          </div>
+          <div hidden?="{{selected!='sources'}}">
+            <buggy-sources-list sources="{{state.sources}}" active="{{selectedSource}}"></buggy-sources-list>
+          </div>
+          <div hidden?="{{selected!='settings'}}">
+            <h1>Settings</h1>
+          </div>
         </div>
       </div>
       <div content>
-        <core-toolbar>
-          <paper-icon-button icon="undo"></paper-icon-button>
-          <paper-icon-button icon="save"></paper-icon-button>
-          <span flex>Implementation of {{state.active.name}}</span>
-          <paper-icon-button icon="fullscreen"></paper-icon-button>
-        </core-toolbar>
-        <div view>
-          <buggy-implementation-view implementation="{{state.active}}"></buggy-implementation-view>
+        <div hidden?="{{selected!='implementation'}}">
+          <buggy-implementation-edit 
+            implementation="{{activeImplementation}}"
+            on-save-implementation="{{saveImplementation}}">
+          </buggy-implementation-edit>
+        </div>
+        <div hidden?="{{selected!='sources'}}">
+          <buggy-source-edit
+            source="{{activeSource}}"
+            on-save-source="{{saveSource}}">
+          </buggy-source-edit>
+        </div>
         </div>
       </div>
     </div>
@@ -68,7 +77,21 @@ Web UI for Buggy, based on Polymer.
   <!-- build:js scripts/buggyui.min.js -->
   <script>
   Polymer({
-    selected: "implementation"
+    selected: "implementation",
+    selectedImplementationChanged: function(){
+      this.state.active = this.selectedImplementation;
+      this.activeImplementation = _.cloneDeep(this.selectedImplementation);
+    },
+    saveImplementation: function(){
+      console.log("save Implementation");
+    },
+    selectedSourceChanged: function(){
+      this.state.activeSource = this.selectedSource;
+      this.activeSource = _.cloneDeep(this.selectedSource);
+    },
+    saveSource: function(e){
+      this.selectedSource = e.detail.newSource;
+    }
   });
   </script>
   <!-- endbuild -->

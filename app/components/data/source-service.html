@@ -1,0 +1,31 @@
+<link rel="import" href="../../lib/core-ajax/core-ajax.html">
+
+<polymer-element name="buggy-source-service" attributes="sources semantics">
+  <template>
+    <template repeat="{{s, idx in sources}}">
+      <core-ajax id="ajax{{idx}}"
+        auto
+        url="{{s.url}}"
+        index="{{idx}}"
+        on-core-response="{{sourceLoaded}}"
+        handleAs="json"
+      ></core-ajax>
+    </template>
+  </template>
+  
+  <script>
+  Polymer({
+    created: function(){
+      this.sources = [];
+      this.semantics = [];
+    },
+    sourceLoaded: function(event, response){
+      var idx = event.path[0].getAttribute("index");
+      this.sources[idx].semantics = response.response;
+    },
+    sourcesChanged: function(){
+      console.log("sources changed");
+    }
+  });
+  </script>
+</polymer-element>

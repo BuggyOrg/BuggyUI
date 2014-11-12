@@ -1,0 +1,45 @@
+
+<link rel="import" href="../../../lib/paper-shadow/paper-shadow.html">
+<link rel="import" href="../../../lib/ace-element/ace-element.html">
+<link rel="import" href="../../../lib/core-toolbar/core-toolbar.html">
+<link rel="import" href="../../../lib/core-icon/core-icon.html">
+<link rel="import" href="../../../lib/core-input/core-input.html">
+<link rel="import" href="../../../lib/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="buggy-source-view" attributes="source">
+  <template>
+    <style>
+      div[empty]{
+        padding:20px;
+      }
+    </style>
+    <div content hidden?="{{empty}}">
+      <paper-input floatinglabel label="Name" required value="{{name}}"></paper-input>
+      <paper-input floatinglabel label="URL" required value="{{url}}"></paper-input>
+    </div>
+    <div empty hidden?="{{!empty}}" layout horizontal center style="height:400px">
+      <h1>No source selected!</h1>
+    </div>
+  </template>
+  <script>
+  Polymer({
+    empty: true,
+    first: true,
+    sourceChanged: function(){
+      this.empty = !("url" in this.source || "name" in this.source) || 
+          (this.source.url == "" && this.source.name == "" && this.first);
+      if(!this.empty) this.first = false;
+      this.name = this.source.name;
+      this.url = this.source.url;
+    },
+    urlChanged: function(){
+      this.source.url = this.url;
+      this.fire("changed");
+    },
+    nameChanged: function(){
+      this.source.name = this.name;
+      this.fire("changed");
+    }
+  });
+  </script>
+</polymer-element>
